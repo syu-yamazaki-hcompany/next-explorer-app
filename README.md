@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# next-explorer-app
 
-## Getting Started
+GitHubのユーザー情報・リポジトリを表示するアプリ。
 
-First, run the development server:
+## セットアップ手順
 
+### リポジトリをクローンする
+以下のコマンドでリポジトリをクローンしてください。
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/syu-yamazaki-hcompany/next-explorer-app.git
+cd next-explorer-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### `.env.local`を作成する
+プロジェクトを実行するには環境変数の設定が必要です。
+以下のコマンドで `.env.example` をコピーして`.env.local` を作成してください。
+```bash
+cp .env.example .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### アクセストークンを取得する
+このアプリでは GitHub API を利用するため、個人のアクセストークンが必要です。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 以下のページにアクセス：
+   https://github.com/settings/tokens
 
-## Learn More
+2. 「Personal access tokens」タブの「Fine-grained tokens」を選択し、「Generate new token」をクリック
 
-To learn more about Next.js, take a look at the following resources:
+3. 以下のように設定：
+   - **token name**: 任意の名前（例：`next-explorer-app-token`）
+   - **Resource owner**: 個人アカウントを選択
+   - **Expiration**: `No expiration` か `60 days`など必要に応じて有効期限を設定
+   - **Repository access**: Public repositoriesを選択し公開されているユーザー情報等を取得できるように設定
+   設定が完了したらGenerate tokenをクリック。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. トークンが生成されたらコピーしておきます（再表示不可）
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. `.env.local` に以下のように貼り付けます：
 
-## Deploy on Vercel
+```env
+GITHUB_ACCESS_TOKEN=your-token-here
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### コンテナを起動しアクセスする
+.env.localを作成後、下記のコマンドでDockerコンテナを起動。
+```bash
+docker-compose up --build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dockerコンテナの起動後、`http://localhost:4000`にアクセス。
