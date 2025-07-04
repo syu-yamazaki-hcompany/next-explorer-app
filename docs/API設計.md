@@ -27,8 +27,8 @@ const res = await fetch(`https://api.github.com/search/users?q=${keyword}`, {
 
 2. ユーザー個人の情報取得（詳細ページ）+ 
 要件のユーザー情報（プロフィール画像、バイオ、フォロワー数など）を取得。
-```graphql
-query GetUserWithRepos($login: String!) {
+```tsx
+const query GetUserWithRepos($login: String!) {
   user(login: $login) {
     name
     login
@@ -56,60 +56,43 @@ query GetUserWithRepos($login: String!) {
     }
   }
 }
-```
-実装のときはこんな感じ。
-```tsx
-const query = `...上記のGraphQLクエリ...`;
 
 const variables = {
   login: "shu-yamazaki", // ← 動的に入力や検索結果から得る値
 };
 
 const data = await client.request(query, variables);
+console.log(data)
 ```
 
 3. ユーザー個人のリポジトリ取得（詳細ページで最大20件表示）
 
-
-```graphql
-import { GraphQLClient, gql } from 'graphql-request'
-
-const endpoint = 'https://api.github.com/graphql'
-
-const graphQLClient = new GraphQLClient(endpoint, {
-  headers: {
-    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-  },
-})
-
-const query = gql`
-  query GetUserRepositories($login: String!) {
-    user(login: $login) {
-      repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }) {
-        nodes {
+ユーザー情報は一度取得しているため、リポジトリ情報のみ追加で取得する。
+```tsx
+query GetUserRepositories($login: String!) {
+  user(login: $login) {
+    repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC },privacy:PUBLIC) {
+      nodes {
+        name
+        description
+        primaryLanguage {
           name
-          description
-          primaryLanguage {
-            name
-          }
-          stargazerCount
-          updatedAt
-          url
         }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
+        stargazerCount
+        updatedAt
+        url
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
-`
-
+}
 const variables = {
-  login: "shu-yamazaki", // ← ここに動的にユーザー名を渡す
+  login: "shu-yamazaki",
 }
 
 const data = await graphQLClient.request(query, variables)
 console.log(data)
-
 ```
