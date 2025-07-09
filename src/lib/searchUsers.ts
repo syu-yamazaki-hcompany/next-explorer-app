@@ -1,3 +1,5 @@
+// REST APIを使用してGitHubユーザーを検索するロジック
+
 export async function searchUsersFromGitHub(login: string) {
   const res = await fetch(`/api/search-users?q=${encodeURIComponent(login)}`);
 
@@ -8,3 +10,4 @@ export async function searchUsersFromGitHub(login: string) {
   const data = await res.json();
   return data.items || [];
 }
+

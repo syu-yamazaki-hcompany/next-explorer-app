@@ -1,0 +1,28 @@
+query GetUserWithRepos($login: String!) {
+  user(login: $login) {
+    name
+    login
+    avatarUrl
+    bio
+    followers {
+      totalCount
+    }
+    repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }, privacy: PUBLIC) {
+      totalCount
+      nodes {
+        name
+        description
+        primaryLanguage {
+          name
+        }
+        stargazerCount
+        updatedAt
+        url
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
