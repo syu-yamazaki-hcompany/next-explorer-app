@@ -5,6 +5,7 @@ import Link from "next/link";
 type Props = {
   user: {
     login: string;
+    name?: string | null;
     avatar_url: string;
     html_url: string;
   };
@@ -24,16 +25,10 @@ export function UserCard({ user }: Props) {
         className="rounded-full"
       />
       <div className="flex flex-col">
-        <span className="font-semibold text-lg">@{user.login}</span>
-        <a
-          href={user.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-blue-500 hover:underline"
-          onClick={(e) => e.stopPropagation()}
-        >
-          GitHub プロフィール
-        </a>
+        <span className="font-semibold text-lg text-blue-600">
+          {user.name || user.login}
+        </span>
+        <span className="text-sm text-gray-600">@{user.login}</span>
       </div>
     </Link>
   );

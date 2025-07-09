@@ -1,5 +1,5 @@
 // app/user/[login]/page.tsx
-import { fetchUser } from "@/lib/fetchUser";
+import { getUserWithRepos } from "@/lib/getUserWithRepos";
 
 type Props = {
   params: {
@@ -9,7 +9,7 @@ type Props = {
 
 export default async function UserPage({ params }: Props) {
   const { login } = params;
-  const userData = await fetchUser(login); // まだ仮、fetchUser.tsで定義予定
+  const userData = await getUserWithRepos(login);
 
   return (
     <main className="p-8">

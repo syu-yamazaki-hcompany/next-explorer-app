@@ -1,0 +1,20 @@
+query GetUserRepositories($login: String!) {
+  user(login: $login) {
+    repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }, privacy: PUBLIC) {
+      nodes {
+        name
+        description
+        primaryLanguage {
+          name
+        }
+        stargazerCount
+        updatedAt
+        url
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
