@@ -1,13 +1,14 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
   user: {
     login: string;
-    name?: string | null;
+    id: number;
     avatar_url: string;
-    html_url: string;
+    name?: string | null;
   };
 };
 
@@ -26,7 +27,7 @@ export function UserCard({ user }: Props) {
       />
       <div className="flex flex-col">
         <span className="font-semibold text-lg text-blue-600">
-          {user.name || user.login}
+          {user.name ?? user.login}
         </span>
         <span className="text-sm text-gray-600">@{user.login}</span>
       </div>
