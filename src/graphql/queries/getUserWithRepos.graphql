@@ -10,6 +10,7 @@ query GetUserWithRepos($login: String!) {
     repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }, privacy: PUBLIC) {
       totalCount
       nodes {
+        id
         name
         description
         primaryLanguage {

@@ -35636,6 +35636,7 @@ export type GetUserWithReposQuery = {
       totalCount: number;
       nodes?: Array<{
         __typename?: "Repository";
+        id: string;
         name: string;
         description?: string | null;
         stargazerCount: number;
@@ -35910,6 +35911,10 @@ export const GetUserWithReposDocument = {
                         selectionSet: {
                           kind: "SelectionSet",
                           selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "name" },

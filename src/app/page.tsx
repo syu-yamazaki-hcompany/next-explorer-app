@@ -1,6 +1,5 @@
 import { SearchForm } from "@/components/SearchForm";
-import Image from "next/image";
-import Link from "next/link";
+import { UserCard } from "@/components/UserCard";
 
 export default async function HomePage({
   searchParams,
@@ -16,26 +15,7 @@ export default async function HomePage({
       <SearchForm defaultValue={query} />
       <div className="grid gap-4">
         {users.map((user) => (
-          <Link
-            key={user.id}
-            href={`/user/${user.login}`}
-            className="flex items-center gap-4 p-4 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-          >
-            <Image
-              src={user.avatar_url}
-              alt={`${user.login}のアバター`}
-              width={48}
-              height={48}
-              className="rounded-full"
-            />
-            <div className="flex flex-col">
-              {/* name がある場合は強調表示し、login はサブ表示 */}
-              <span className="font-semibold text-lg text-blue-600">
-                {user.name ?? user.login}
-              </span>
-              <span className="text-sm text-gray-600">@{user.login}</span>
-            </div>
-          </Link>
+          <UserCard key={user.id} user={user} />
         ))}
       </div>
     </main>
@@ -62,9 +42,14 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
     }
   );
 
-  if (!res.ok) throw new Error("GitHubユーザー検索に失敗しました");
-
+  if (!res.ok) {
+    console.error(`[Server] GitHubユーザー検索失敗: ${res.status}`);
+    throw new Error("GitHubユーザー検索に失敗しました");
+  } else {
+    console.log(`[Server] GitHubユーザー検索成功: ${res.status}`);
+  }
   const data = await res.json();
+  console.log(`[Server] ユーザー数: ${data.items.length}`);
 
   //　各ユーザーの name を並列で取得
   const enrichedItems = await Promise.all(
@@ -81,11 +66,15 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
           }
         );
 
-        if (!detailRes.ok) throw new Error("ユーザー詳細取得に失敗");
-
+        if (!detailRes.ok) {
+          console.warn(`[Server] ${user.login} の詳細取得に失敗`);
+          throw new Error("ユーザー詳細取得に失敗");
+        }
         const detail = await detailRes.json();
+        console.log(`[Server] 詳細取得成功: ${user.login}, name: ${detail.name}`);
         return { ...user, name: detail.name };
       } catch (err) {
+        console.error(`[Server] ${user.login} の詳細取得エラー:`, err);
         return { ...user, name: null };
       }
     })
