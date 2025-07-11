@@ -3,6 +3,8 @@ import { GetUserWithReposQueryVariables } from "@/graphql/generated/graphql";
 import { GraphQLClient } from "graphql-request";
 import Image from "next/image";
 import RepoCard from "@/components/RepoCard";
+import "server-only"
+
 
 
 

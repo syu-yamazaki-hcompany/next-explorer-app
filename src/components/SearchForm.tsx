@@ -1,4 +1,5 @@
-// ユーザー名を入力して検索するフォームのコンポーネント
+// ユーザー名を入力して検索するフォーム
+// 入力内容を保持する必要があるのでクライアントコンポーネント
 // 入力されたユーザー名を使って、/user/[login] ページに遷移
 
 "use client";
@@ -17,6 +18,8 @@ export function SearchForm({ defaultValue = "" }: { defaultValue?: string }) {
 
     startTransition(() => {
       router.push(`/?q=${encodeURIComponent(input)}`);
+    // サーバーアクションとして切り出すべきかもですが、処理が単純なので設計の複雑さを避けるためここに書きます。
+
     });
   };
 

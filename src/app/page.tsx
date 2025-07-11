@@ -1,5 +1,10 @@
+// トップページ兼検索ページ
+// 入力フィールドと一覧表示はクライアントコンポーネントで実装するためコロケーションはせずnameを並列取得する
+// 要件に従いユーザー検索のfetchにはREST APIを使用
+
 import { SearchForm } from "@/components/SearchForm";
 import { UserCard } from "@/components/UserCard";
+import "server-only"
 
 export default async function HomePage({
   searchParams,
@@ -51,7 +56,7 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
   const data = await res.json();
   console.log(`[Server] ユーザー数: ${data.items.length}`);
 
-  //　各ユーザーの name を並列で取得
+  // 各ユーザーの name を並列で取得
   const enrichedItems = await Promise.all(
     data.items.map(async (user: any) => {
       try {
