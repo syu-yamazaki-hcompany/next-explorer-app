@@ -35,7 +35,7 @@ export default function RepoCards({ repositories }: Props) {
 
       {validRepos.length > 0 ? (
         <>
-          <ul className="mt-4 grid gap-4">
+          <ul className="mt-4 grid gap-4 max-w-3xl mx-auto">
             {paginated.map((repo) => (
               <li key={repo.id}>
                 <a

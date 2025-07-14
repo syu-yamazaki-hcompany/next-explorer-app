@@ -16,6 +16,7 @@ type Props = {
 };
 
 export function UserCard({ user }: Props) {
+  // クエリパラメータを取得して、詳細ページの戻るボタンから直前の検索結果を維持したまま戻る用
   const params = useSearchParams();
   const q = params.get("q");
   const href = q
