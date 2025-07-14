@@ -58,7 +58,7 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
 
   // 各ユーザーの name を並列で取得
   const enrichedItems = await Promise.all(
-    data.items.map(async (user: any) => {
+    data.items.map(async (user: GitHubUser) => {
       try {
         const detailRes = await fetch(
           `https://api.github.com/users/${user.login}`,

@@ -1,3 +1,5 @@
+// ローディングを表示するコンポーネント
+
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 export default function Loading() {

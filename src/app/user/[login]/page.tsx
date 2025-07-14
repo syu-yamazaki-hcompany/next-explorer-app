@@ -1,3 +1,6 @@
+// ユーザー名をパラメータとして受け取り、そのユーザーの詳細情報とリポジトリを表示するページ
+// 再利用しない静的表示部分はサーバーコンポーネント内に記載
+
 import { GetUserWithReposDocument } from "@/graphql/generated/graphql";
 import { GetUserWithReposQueryVariables } from "@/graphql/generated/graphql";
 import { GraphQLClient } from "graphql-request";
@@ -5,17 +8,12 @@ import Image from "next/image";
 import RepoCard from "@/components/RepoCard";
 import "server-only"
 
-
-
-
-type Props = {
-  params: {
-    login: string;
-  };
-};
-
-export default async function UserPage({ params }: Props) {
-  const { login } = params;
+export default async function UserPage({
+  params,
+}: {
+  params: Promise<{ login: string }>;
+}) {
+  const { login } = await params;
 
   const graphqlClient = new GraphQLClient("https://api.github.com/graphql", {
     headers: {

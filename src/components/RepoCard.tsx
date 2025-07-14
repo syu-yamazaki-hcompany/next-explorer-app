@@ -7,7 +7,6 @@
 import { useState } from "react";
 import { GetUserWithReposQuery } from "@/graphql/generated/graphql";
 
-// 型を明示的に中間変数に代入して利用する。
 type UserRepositoriesNodes = NonNullable<
   GetUserWithReposQuery["user"]
 >["repositories"]["nodes"];

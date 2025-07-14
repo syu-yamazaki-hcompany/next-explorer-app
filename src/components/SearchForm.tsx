@@ -18,7 +18,7 @@ export function SearchForm({ defaultValue = "" }: { defaultValue?: string }) {
 
     startTransition(() => {
       router.push(`/?q=${encodeURIComponent(input)}`);
-    // サーバーアクションとして切り出すべきかもですが、処理が単純なので設計の複雑さを避けるためここに書きます。
+    // サーバーアクションとして切り出すべきかもですが、検索状態を維持したいのでここに書きます。
 
     });
   };
