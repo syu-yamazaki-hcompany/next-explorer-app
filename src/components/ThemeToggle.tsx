@@ -29,8 +29,13 @@ export function ThemeToggle() {
   };
 
   return (
-    <button onClick={toggleTheme}>
-      {isDark ? "☀️" : "🌙"}
-    </button>
+<button
+  onClick={toggleTheme}
+  aria-label="テーマ切り替え"
+  className="p-2 rounded-full bg-gray dark:bg-neutral-800 text-lg hover:ring hover:ring-yellow-300 shadow transition"
+>
+  {isDark ? "☀️" : "🌙"}
+</button>
+
   );
 }

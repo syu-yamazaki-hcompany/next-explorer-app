@@ -6,7 +6,10 @@ import { GetUserWithReposQueryVariables } from "@/graphql/generated/graphql";
 import { GraphQLClient } from "graphql-request";
 import Image from "next/image";
 import RepoCard from "@/components/RepoCard";
-import "server-only"
+import "server-only";
+import Link from "next/link";
+import { BackButton } from "@/components/BackButton";
+
 
 export default async function UserPage({
   params,
@@ -34,6 +37,7 @@ export default async function UserPage({
 
   return (
     <main className="p-8 space-y-8">
+      <BackButton />
       <div className="flex items-center gap-4">
         <Image
           src={user.avatarUrl}
