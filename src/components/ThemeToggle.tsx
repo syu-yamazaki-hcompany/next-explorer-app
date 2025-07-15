@@ -32,7 +32,7 @@ export function ThemeToggle() {
 <button
   onClick={toggleTheme}
   aria-label="テーマ切り替え"
-  className="p-2 rounded-full bg-gray dark:bg-neutral-800 text-lg hover:ring hover:ring-yellow-300 shadow transition"
+  className="p-2 rounded-full bg-white dark:bg-neutral-800 text-black dark:text-white hover:ring-2 hover:ring-yellow-300 transition"
 >
   {isDark ? "☀️" : "🌙"}
 </button>
