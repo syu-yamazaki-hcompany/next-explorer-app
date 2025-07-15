@@ -1,8 +1,10 @@
 // ユーザーカードのコンポーネント
 // 状態は持たないが要件に従ってクライアントコンポーネントとし、コロケーションはしない
 
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   user: {
@@ -14,28 +16,40 @@ type Props = {
 };
 
 export function UserCard({ user }: Props) {
+  // クエリパラメータを取得して、詳細ページの戻るボタンから直前の検索結果を維持したまま戻る用
+  const params = useSearchParams();
+  const q = params.get("q");
+  const href = q
+    ? `/user/${user.login}?q=${encodeURIComponent(q)}`
+    : `/user/${user.login}`;
+
+  // 詳細ページに遷移する直前に login を保存
+  const handleClick = () => {
+    sessionStorage.setItem("scrollTargetLogin", user.login);
+  };
+
   return (
     <Link
-    href={`/user/${user.login}`}
-    className="flex items-center gap-4 p-4 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+      href={href}
+      onClick={handleClick}
+      data-login={user.login}
+      className="card-base card-hover-colorful card-border-colorful min-h-[7rem] flex gap-4"
     >
-    <Image
+      <Image
         src={user.avatar_url}
         alt={`${user.login}のアバター`}
-        width={48}
-        height={48}
+        width={80}
+        height={80}
         className="rounded-full"
-    />
-    <div className="flex flex-col">
-        <span className="font-semibold text-lg text-blue-600">
-        {user.name ?? user.login}
+      />
+      <div className="flex flex-col">
+        <span className="card-title">
+          {user.name ?? user.login}
         </span>
-        <span className="text-sm text-gray-600">
-        @{user.login}
+        <span className="card-subtitle">
+          @{user.login}
         </span>
-    </div>
-    
+      </div>
     </Link>
-
   );
 }

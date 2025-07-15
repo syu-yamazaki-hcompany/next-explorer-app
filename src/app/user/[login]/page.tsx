@@ -6,7 +6,9 @@ import { GetUserWithReposQueryVariables } from "@/graphql/generated/graphql";
 import { GraphQLClient } from "graphql-request";
 import Image from "next/image";
 import RepoCard from "@/components/RepoCard";
-import "server-only"
+import "server-only";
+import { BackButton } from "@/components/BackButton";
+import { ScrollReset } from "@/components/ScrollReset";
 
 export default async function UserPage({
   params,
@@ -32,30 +34,54 @@ export default async function UserPage({
     );
   }
 
+  const githubUrl = `https://github.com/${user.login}`;
+
   return (
-    <main className="p-8 space-y-8">
-      <div className="flex items-center gap-4">
-        <Image
-          src={user.avatarUrl}
-          alt={`${user.login} のアバター`}
-          width={80}
-          height={80}
-          className="rounded-full"
-        />
-        <div>
-          <h1 className="text-2xl font-bold">
-            <span className="text-blue-700">{user.name ?? user.login}</span>
-          </h1>
-          <p className="text-gray-600">@{user.login}</p>
-          {user.bio && <p className="mt-2 text-sm text-gray-800">{user.bio}</p>}
-          <p className="text-sm text-gray-500 mt-1">
-            フォロワー: {user.followers.totalCount}
-          </p>
+    <>
+      <ScrollReset /> {/* ← スクロール位置をリセットする */}
+      <main className="px-4 py-8 max-w-3xl mx-auto space-y-8">
+        <BackButton />
+
+        <div className="flex items-center gap-4">
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${user.login}のGitHubプロフィール`}
+          >
+            <Image
+              src={user.avatarUrl}
+              alt={`${user.login} のアバター`}
+              width={100}
+              height={100}
+              className="rounded-full hover:ring-3 ring-blue-500 dark:ring-yellow-500 transition"
+            />
+          </a>
+
+          <div>
+            <h1 className="text-2xl font-bold">
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-700 dark:text-yellow-500 hover:underline"
+              >
+                {user.name ?? user.login}
+              </a>
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">@{user.login}</p>
+            {user.bio && (
+              <p className="mt-2 text-sm text-gray-900 dark:text-gray-100">{user.bio}</p>
+            )}
+            <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+              フォロワー: {user.followers.totalCount}
+            </p>
+          </div>
         </div>
-      </div>
 
       {/* クライアントコンポーネントでリポジトリ表示 */}
-      <RepoCard repositories={user.repositories.nodes} />
-    </main>
+        <RepoCard repositories={user.repositories.nodes} />
+      </main>
+    </>
   );
 }
