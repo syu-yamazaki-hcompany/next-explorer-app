@@ -28,4 +28,52 @@
   }
 }
 
+/* カスタムアニメーション */
+@layer utilities {
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite;
+  }
+}
+
+/* ユーザーカードとリポジトリカードの共通スタイリング */
+@layer components {
+  .card-base {
+    @apply flex items-center gap-4 p-4 rounded border transition;
+  }
+
+  .card-hover-colorful {
+    @apply hover:bg-gradient-to-r
+           hover:from-blue-300 hover:to-purple-300
+           dark:hover:from-yellow-900 dark:hover:to-red-900;
+  }
+
+  .card-border-colorful {
+    @apply border-blue-600 dark:border-yellow-900;
+  }
+
+  .card-title {
+    @apply font-semibold text-lg text-blue-700 dark:text-yellow-500;
+  }
+
+  .card-subtitle {
+    @apply text-sm text-gray-900 dark:text-gray-100;
+  }
+}
+
+
+
 

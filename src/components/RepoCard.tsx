@@ -42,17 +42,17 @@ export default function RepoCards({ repositories }: Props) {
                   href={repo.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block border rounded p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+                  className="block card-base card-border-colorful card-hover-colorful"
                 >
-                  <h3 className="text-blue-600 font-semibold text-lg hover:underline">
+                  <h3 className="card-title">
                     {repo.name}
                   </h3>
 
                   {repo.description && (
-                    <p className="text-sm mt-1 text-gray-700">{repo.description}</p>
+                    <p className="card-subtitle mt-1">{repo.description}</p>
                   )}
 
-                  <div className="text-xs text-gray-500 mt-2 flex flex-wrap gap-4">
+                  <div className="text-xs text-gray-700 dark:text-gray-300 mt-2 flex flex-wrap gap-4">
                     <span>言語: {repo.primaryLanguage?.name ?? "不明"}</span>
                     <span>⭐ {repo.stargazerCount}</span>
                     <span>
