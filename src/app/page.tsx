@@ -5,10 +5,12 @@
 import { SearchPage } from "@/components/SearchPage";
 import "server-only";
 
+// searchParams から検索クエリを取得し、GitHubユーザーを検索してクライアントコンポーネントに渡す
 export default async function HomePage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const params = await searchParams;
   const query = params.q ?? "";
   const users = query ? await fetchUsers(query) : [];
+  // クエリがある場合のみ検索APIを呼び出し、なければ空配列を返す
 
   return (
     <main className="p-8">
@@ -25,6 +27,8 @@ export type GitHubUser = {
   name?: string | null;
 };
 
+// GitHub REST APIを使ってユーザーを検索し、さらに個別のユーザー情報を取得して name を補完する
+// APIの仕様上、検索結果には name が含まれないため、2段階で取得している
 async function fetchUsers(login: string): Promise<GitHubUser[]> {
   const res = await fetch(
     `https://api.github.com/search/users?q=${encodeURIComponent(login)}`,
@@ -33,7 +37,8 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
         Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
         Accept: "application/vnd.github+json",
       },
-      cache: "no-store",
+      cache: "no-store", // 最新の結果を取得するためキャッシュを無効化
+
     }
   );
 
@@ -44,7 +49,8 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
   const data = await res.json();
   console.log(`[Server] ユーザー数: ${data.items.length}`);
 
-  const enrichedItems = await Promise.all(
+  // nameを取得する
+  const fetchUsername = await Promise.all(
     data.items.map(async (user: GitHubUser) => {
       try {
         const detailRes = await fetch(
@@ -67,5 +73,5 @@ async function fetchUsers(login: string): Promise<GitHubUser[]> {
     })
   );
 
-  return enrichedItems;
+  return fetchUsername;
 }

@@ -1,3 +1,20 @@
+# 開発用
+# version: "3.8"
+
+# services:
+#   app:
+#     build: .
+#     ports:
+#       - "4000:3000"
+#     volumes:
+#       - .:/app
+#       - /app/node_modules
+#     env_file:
+#       - .env.local
+
+
+# ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+# 本番モードで起動する用
 version: "3.8"
 
 services:
@@ -5,8 +22,5 @@ services:
     build: .
     ports:
       - "4000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
     env_file:
       - .env.local

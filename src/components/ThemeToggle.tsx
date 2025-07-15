@@ -9,13 +9,14 @@ export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = stored === "dark" || (!stored && prefersDark);
+    const stored = localStorage.getItem("theme");// ユーザーが以前に選択したテーマ
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;// OSのダークモード設定
+    const initial = stored === "dark" || (!stored && prefersDark);// 優先順位: localStorage > OS設定
     setIsDark(initial);
     updateTheme(initial);
   }, []);
 
+  // localStorage と cookie にテーマ状態を保存（初期描画用のサーバーでも参照できるように）
   const updateTheme = (dark: boolean) => {
     const theme = dark ? "dark" : "light";
     localStorage.setItem("theme", theme);
