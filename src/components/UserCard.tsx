@@ -25,8 +25,8 @@ export function UserCard({ user }: Props) {
 
   return (
     <Link
-      href={`/user/${user.login}`}
-      className="flex items-center gap-4 p-4 rounded border border-gray-300 dark:border-white/10 bg-white dark:bg-neutral-800 hover:bg-gray-100 dark:hover:bg-neutral-700 transition"
+      href={href}
+      className="flex items-center gap-4 p-4 border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-50 dark:hover:bg-gray-800 transition"
     >
     <Image
         src={user.avatar_url}

@@ -1,5 +1,5 @@
+/* 共通のテーマだけ管理 */
 @import "tailwindcss";
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* 1. テーマカラーを CSS 変数として定義 */
@@ -27,3 +27,5 @@
     font-family: var(--font-sans), sans-serif;
   }
 }
+
+

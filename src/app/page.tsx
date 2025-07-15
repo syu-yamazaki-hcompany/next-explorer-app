@@ -12,9 +12,6 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
 
   return (
     <main className="p-8 max-w-3xl mx-auto">
-      <div className="bg-red-500 dark:bg-blue-500 text-white p-4">
-  ダークモードのテスト表示
-</div>
       <SearchPage initialUsers={users} query={query} />
     </main>
   );
