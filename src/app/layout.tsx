@@ -5,6 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cookies } from "next/headers";
+import { Github } from "lucide-react";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +33,22 @@ export default async function RootLayout({
 
   return (
     <html lang="ja" className={theme === "dark" ? "dark" : ""}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="fixed top-8 right-8 z-50">
-          <ThemeToggle />
-        </div>
+      <body className="antialiased">
+
+        <header className="sticky top-0 z-40 backdrop-blur-sm bg-white/60 dark:bg-neutral-900/60 border-b border-gray-200 dark:border-white/10 shadow-sm">
+          <div className="w-full px-4 py-3 flex items-center justify-between">
+
+            {/* 左：ロゴ＋タイトル */}
+            <div className="flex items-center gap-2 text-gray-700 dark:text-gray-100">
+              <Github className="w-5 h-5" />
+              <span className="text-lg font-semibold tracking-tight">GitHub Explorer</span>
+            </div>
+
+            {/* 右：テーマ切り替え */}
+            <ThemeToggle />
+          </div>
+        </header>
+
         {children}
       </body>
     </html>

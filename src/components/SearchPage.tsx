@@ -17,7 +17,7 @@ export function SearchPage({ initialUsers, query }: Props) {
   useEffect(() => {
     // クエリが変わったらローディング解除
     setIsSearching(false);
-  }, [query]);
+  }, [query, initialUsers]);
 
   return (
     <div className="space-y-8">
