@@ -35,18 +35,33 @@ export function ThemeToggle() {
       aria-label="テーマ切り替え"
       aria-pressed={isDark}
       title={isDark ? "ライトモードに切り替え" : "ダークモードに切り替え"}
-      className="group p-2 rounded-full border border-gray-300 dark:border-white/10 
-                 bg-white/80 dark:bg-neutral-800/80 
-                 text-gray-700 dark:text-gray-100 
-                 shadow-md hover:shadow-lg transition-all duration-200 
-                 hover:scale-105 backdrop-blur-sm
-                 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:focus-visible:ring-yellow-400"
+      className="group p-2 rounded-full border border-gray-400 dark:border-white/20
+                bg-white/80 dark:bg-neutral-800/80 
+                text-gray-700 dark:text-gray-100 
+                shadow-md hover:shadow-lg transition-all duration-300
+                hover:scale-105
+                hover:bg-black dark:hover:bg-white
+                cursor-pointer focus:outline-none 
+                focus-visible:ring-2 focus-visible:ring-blue-900 dark:focus-visible:ring-yellow-400
+                backdrop-blur-sm"
     >
-      {isDark ? (
-        <SunIcon className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-      ) : (
-        <MoonIcon className="w-5 h-5 group-hover:-rotate-12 transition-transform" />
-      )}
+{isDark ? (
+  <SunIcon
+    className="w-5 h-5
+               group-hover:rotate-12
+               group-hover:text-orange-600
+               group-hover:drop-shadow-md
+               transition-all duration-300"
+  />
+) : (
+  <MoonIcon
+    className="w-5 h-5
+               group-hover:-rotate-12
+               group-hover:text-yellow-300
+               group-hover:drop-shadow-[0_0_6px_#facc15]
+               transition-all duration-300"
+  />
+)}
     </button>
   );
 }

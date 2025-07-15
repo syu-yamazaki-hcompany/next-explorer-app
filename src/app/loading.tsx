@@ -21,7 +21,7 @@ export default function Loading() {
         {Array.from({ length: 30 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+            className="absolute w-1 h-1 bg-yellow-200 rounded-full animate-twinkle"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -34,7 +34,7 @@ export default function Loading() {
       {/* ロゴ・スピナー・テキスト */}
       <GitHubLogoIcon className="w-16 h-16 text-gray-700 dark:text-gray-300 animate-pulse-slow" />
 
-      <div className="w-16 h-16 border-4 border-gray-300 dark:border-neutral-600 border-t-blue-500 dark:border-t-blue-300 rounded-full animate-spin-slow shadow-md" />
+      <div className="w-16 h-16 border-4 border-gray-300 dark:border-neutral-600 border-t-blue-500 dark:border-t-yellow-300 rounded-full animate-spin-slow shadow-md" />
 
       <div className="text-gray-700 dark:text-gray-200 text-base font-semibold tracking-wide animate-fade-in">
         データ取得中…

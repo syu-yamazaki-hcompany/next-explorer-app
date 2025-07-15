@@ -1,10 +1,7 @@
 // リポジトリカードのコンポーネント
-// ページ切り替えのための状態管理を行う必要があるのでクライアントコンポーネント
-// クライアントコンポーネントからのfetchは要件違反なのでコロケーションさせない
+// ページネーションのために状態を持たせてましたが、スクロールで全部見れたほうがUIUX的に良さそうなので実装やめました
+// 状態を持たなくていいのでコロケーションさせたほうが責務が明確かもですが、fetch回数が増えるのとユーザー情報取得にまとめといたほうが把握しやすいので[login]/page.tsxで取得したものを受け取る形にしています
 
-"use client";
-
-import { useState } from "react";
 import { GetUserWithReposQuery } from "@/graphql/generated/graphql";
 
 type UserRepositoriesNodes = NonNullable<
@@ -15,19 +12,10 @@ type Props = {
   repositories?: UserRepositoriesNodes;
 };
 
-const ITEMS_PER_PAGE = 5;
-
 export default function RepoCards({ repositories }: Props) {
   const validRepos = (repositories ?? []).filter(
     (repo): repo is NonNullable<typeof repo> => Boolean(repo)
   );
-
-  const [page, setPage] = useState(0);
-  const start = page * ITEMS_PER_PAGE;
-  const end = start + ITEMS_PER_PAGE;
-  const paginated = validRepos.slice(start, end);
-
-  const totalPages = Math.ceil(validRepos.length / ITEMS_PER_PAGE);
 
   return (
     <section className="space-y-6">
@@ -35,33 +23,9 @@ export default function RepoCards({ repositories }: Props) {
         公開リポジトリ（{validRepos.length}件中）
       </h2>
 
-      {/* ページネーションを上に配置 */}
-      {totalPages > 1 && (
-        <div className="flex gap-4 justify-center">
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-            disabled={page === 0}
-            className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
-          >
-            前へ
-          </button>
-          <span className="text-sm mt-1">
-            {page + 1} / {totalPages}
-          </span>
-          <button
-            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
-            disabled={page + 1 >= totalPages}
-            className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
-          >
-            次へ
-          </button>
-        </div>
-      )}
-
-      {/* リポジトリリスト */}
       {validRepos.length > 0 ? (
         <ul className="grid gap-4 max-w-3xl mx-auto">
-          {paginated.map((repo) => (
+          {validRepos.map((repo) => (
             <li key={repo.id}>
               <a
                 href={repo.url}

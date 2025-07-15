@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cookies } from "next/headers";
 import { Github } from "lucide-react";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 
 
 const geistSans = Geist({
@@ -50,6 +51,7 @@ export default async function RootLayout({
         </header>
 
         {children}
+        <ScrollToTopButton /> 
       </body>
     </html>
   );

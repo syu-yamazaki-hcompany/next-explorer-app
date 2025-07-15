@@ -11,7 +11,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
   const users = query ? await fetchUsers(query) : [];
 
   return (
-    <main className="p-8 max-w-3xl mx-auto">
+    <main className="p-8">
       <SearchPage initialUsers={users} query={query} />
     </main>
   );
