@@ -17,6 +17,7 @@ export default async function UserPage({
 }) {
   const { login } = await params;
 
+  // GitHub GraphQL API v4 への認証付きクライアントを作成
   const graphqlClient = new GraphQLClient("https://api.github.com/graphql", {
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -25,6 +26,7 @@ export default async function UserPage({
 
   const variables: GetUserWithReposQueryVariables = { login };
   const { user } = await graphqlClient.request(GetUserWithReposDocument, variables);
+  // 型生成されたGraphQLドキュメント（GetUserWithReposDocument）を使ってクエリを実行
 
   if (!user) {
     return (

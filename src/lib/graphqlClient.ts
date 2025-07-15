@@ -1,3 +1,5 @@
+// GitHub GraphQL API 用の GraphQL クライアントを定義するファイル
+
 import { GraphQLClient } from 'graphql-request';
 
 export const graphqlClient = new GraphQLClient('https://api.github.com/graphql', {

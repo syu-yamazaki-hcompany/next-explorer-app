@@ -1,23 +1,11 @@
 // 全体のレイアウトを定義するファイル
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cookies } from "next/headers";
 import { Github } from "lucide-react";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -31,6 +19,9 @@ export default async function RootLayout({
 }) {
   const cookieStore =await  cookies();
   const theme = cookieStore.get("theme")?.value ?? "light";
+  // クッキーからテーマ設定（"light" or "dark"）を取得
+  // サーバー側で読み取り、html にクラスとして反映（初期描画でチラつきを防ぐ）
+
 
   return (
     <html lang="ja" className={theme === "dark" ? "dark" : ""}>

@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     domains: ["avatars.githubusercontent.com"],
+    unoptimized: true,
   },
   env: {
     GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,

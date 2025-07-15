@@ -1,3 +1,5 @@
+// スクロール位置に応じて表示される「ページの先頭に戻る」ボタンのコンポーネント
+
 "use client";
 import { ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
