@@ -14,12 +14,9 @@ import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-  "query GetUserRepositories($login: String!) {\n  user(login: $login) {\n    repositories(\n      first: 20\n      orderBy: {field: UPDATED_AT, direction: DESC}\n      privacy: PUBLIC\n    ) {\n      nodes {\n        name\n        description\n        primaryLanguage {\n          name\n        }\n        stargazerCount\n        updatedAt\n        url\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}": typeof types.GetUserRepositoriesDocument;
   "query GetUserWithRepos($login: String!) {\n  user(login: $login) {\n    name\n    login\n    avatarUrl\n    bio\n    followers {\n      totalCount\n    }\n    repositories(\n      first: 20\n      orderBy: {field: UPDATED_AT, direction: DESC}\n      privacy: PUBLIC\n    ) {\n      totalCount\n      nodes {\n        id\n        name\n        description\n        primaryLanguage {\n          name\n        }\n        stargazerCount\n        updatedAt\n        url\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}": typeof types.GetUserWithReposDocument;
 };
 const documents: Documents = {
-  "query GetUserRepositories($login: String!) {\n  user(login: $login) {\n    repositories(\n      first: 20\n      orderBy: {field: UPDATED_AT, direction: DESC}\n      privacy: PUBLIC\n    ) {\n      nodes {\n        name\n        description\n        primaryLanguage {\n          name\n        }\n        stargazerCount\n        updatedAt\n        url\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}":
-    types.GetUserRepositoriesDocument,
   "query GetUserWithRepos($login: String!) {\n  user(login: $login) {\n    name\n    login\n    avatarUrl\n    bio\n    followers {\n      totalCount\n    }\n    repositories(\n      first: 20\n      orderBy: {field: UPDATED_AT, direction: DESC}\n      privacy: PUBLIC\n    ) {\n      totalCount\n      nodes {\n        id\n        name\n        description\n        primaryLanguage {\n          name\n        }\n        stargazerCount\n        updatedAt\n        url\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}":
     types.GetUserWithReposDocument,
 };
@@ -38,12 +35,6 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: "query GetUserRepositories($login: String!) {\n  user(login: $login) {\n    repositories(\n      first: 20\n      orderBy: {field: UPDATED_AT, direction: DESC}\n      privacy: PUBLIC\n    ) {\n      nodes {\n        name\n        description\n        primaryLanguage {\n          name\n        }\n        stargazerCount\n        updatedAt\n        url\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}",
-): (typeof documents)["query GetUserRepositories($login: String!) {\n  user(login: $login) {\n    repositories(\n      first: 20\n      orderBy: {field: UPDATED_AT, direction: DESC}\n      privacy: PUBLIC\n    ) {\n      nodes {\n        name\n        description\n        primaryLanguage {\n          name\n        }\n        stargazerCount\n        updatedAt\n        url\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
