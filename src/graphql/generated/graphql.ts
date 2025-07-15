@@ -2404,10 +2404,7 @@ export type ClosedEvent = Node &
     id: Scalars["ID"]["output"];
     /** The HTTP path for this closed event. */
     resourcePath: Scalars["URI"]["output"];
-    /**
-     * The reason the issue state was changed to closed.
-     * @deprecated The state reason for duplicate issue is now returned by default. Removal on 2025-10-01 UTC.
-     */
+    /** The reason the issue state was changed to closed. */
     stateReason?: Maybe<IssueStateReason>;
     /** The HTTP URL for this closed event. */
     url: Scalars["URI"]["output"];
@@ -9375,10 +9372,7 @@ export type Issue = Assignable &
     resourcePath: Scalars["URI"]["output"];
     /** Identifies the state of the issue. */
     state: IssueState;
-    /**
-     * Identifies the reason for the issue state.
-     * @deprecated The state reason for duplicate issue is now returned by default. Removal on 2025-10-01 UTC.
-     */
+    /** Identifies the reason for the issue state. */
     stateReason?: Maybe<IssueStateReason>;
     /** A list of sub-issues associated with the Issue. */
     subIssues: IssueConnection;
@@ -35590,34 +35584,6 @@ export type WorkflowsParametersInput = {
   workflows: Array<WorkflowFileReferenceInput>;
 };
 
-export type GetUserRepositoriesQueryVariables = Exact<{
-  login: Scalars["String"]["input"];
-}>;
-
-export type GetUserRepositoriesQuery = {
-  __typename?: "Query";
-  user?: {
-    __typename?: "User";
-    repositories: {
-      __typename?: "RepositoryConnection";
-      nodes?: Array<{
-        __typename?: "Repository";
-        name: string;
-        description?: string | null;
-        stargazerCount: number;
-        updatedAt: any;
-        url: any;
-        primaryLanguage?: { __typename?: "Language"; name: string } | null;
-      } | null> | null;
-      pageInfo: {
-        __typename?: "PageInfo";
-        hasNextPage: boolean;
-        endCursor?: string | null;
-      };
-    };
-  } | null;
-};
-
 export type GetUserWithReposQueryVariables = Exact<{
   login: Scalars["String"]["input"];
 }>;
@@ -35653,158 +35619,6 @@ export type GetUserWithReposQuery = {
   } | null;
 };
 
-export const GetUserRepositoriesDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetUserRepositories" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "login" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "user" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "login" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "login" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "repositories" },
-                  arguments: [
-                    {
-                      kind: "Argument",
-                      name: { kind: "Name", value: "first" },
-                      value: { kind: "IntValue", value: "20" },
-                    },
-                    {
-                      kind: "Argument",
-                      name: { kind: "Name", value: "orderBy" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "field" },
-                            value: { kind: "EnumValue", value: "UPDATED_AT" },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "direction" },
-                            value: { kind: "EnumValue", value: "DESC" },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: "Argument",
-                      name: { kind: "Name", value: "privacy" },
-                      value: { kind: "EnumValue", value: "PUBLIC" },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "nodes" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "name" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "description" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "primaryLanguage" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "name" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "stargazerCount" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "updatedAt" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "url" },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "pageInfo" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "hasNextPage" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "endCursor" },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  GetUserRepositoriesQuery,
-  GetUserRepositoriesQueryVariables
->;
 export const GetUserWithReposDocument = {
   kind: "Document",
   definitions: [
